@@ -32,6 +32,15 @@ import '../../modules/restaurants/domain/repository/restaurante_repository.dart'
     as _i280;
 import '../../modules/restaurants/presentation/bloc/restaurante_bloc.dart'
     as _i337;
+import '../../modules/settings/domain/data/cliente_remote_data_source_impl.dart'
+    as _i1040;
+import '../../modules/settings/domain/data/cliente_repository_impl.dart'
+    as _i678;
+import '../../modules/settings/domain/repository/cliente_remote_data_source.dart'
+    as _i635;
+import '../../modules/settings/domain/repository/cliente_repository.dart'
+    as _i856;
+import '../../modules/settings/presentation/bloc/cliente_bloc.dart' as _i887;
 import '../auth/api_client.dart' as _i446;
 import '../storage/auth_local_data_source.dart' as _i665;
 import '../storage/auth_local_data_source_impl.dart' as _i907;
@@ -48,6 +57,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => registerModule.storage);
     gh.lazySingleton<_i446.ApiClient>(() => _i446.ApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i635.ClienteRemoteDataSource>(
+      () => _i1040.ClienteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
     gh.lazySingleton<_i214.AuthRemoteDataSource>(
       () => _i305.AuthRemoteDataSourceImpl(gh<_i446.ApiClient>()),
     );
@@ -62,6 +74,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i501.AuthBloc>(
       () => _i501.AuthBloc(gh<_i779.AuthRepository>()),
+    );
+    gh.lazySingleton<_i856.ClienteRepository>(
+      () => _i678.ClienteRepositoryImpl(gh<_i635.ClienteRemoteDataSource>()),
+    );
+    gh.factory<_i887.ClienteBloc>(
+      () => _i887.ClienteBloc(gh<_i856.ClienteRepository>()),
     );
     gh.lazySingleton<_i465.RestauranteRemoteDataSource>(
       () => _i17.RestauranteRemoteDataSourceImpl(gh<_i446.ApiClient>()),

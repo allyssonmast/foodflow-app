@@ -7,6 +7,8 @@ import '../../../../config/dependence_injection/injection.dart';
 
 import '../../../restaurants/presentation/bloc/restaurante_bloc.dart';
 import '../../../restaurants/presentation/bloc/restaurante_event.dart';
+import '../../../settings/presentation/bloc/cliente_bloc.dart';
+import '../../../settings/presentation/bloc/cliente_event.dart';
 
 @RoutePage()
 class DashboardPage extends StatefulWidget {
@@ -24,6 +26,11 @@ class _DashboardPageState extends State<DashboardPage> {
         BlocProvider<RestauranteBloc>(
           create: (_) => getIt<RestauranteBloc>()
             ..add(const RestauranteEvent.load()),
+        ),
+
+        BlocProvider<ClienteBloc>(
+          create: (_) => getIt<ClienteBloc>()
+            ..add(const ClienteEvent.load()),
         ),
 
         // BlocProvider<OrdersBloc>(
