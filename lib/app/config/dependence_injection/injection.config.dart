@@ -22,6 +22,16 @@ import '../../modules/auth/data/repositories/auth_repository_impl.dart'
     as _i817;
 import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
 import '../../modules/auth/presentation/bloc/auth_bloc.dart' as _i501;
+import '../../modules/restaurante_details/data/restaurante_data_source_impl.dart'
+    as _i62;
+import '../../modules/restaurante_details/data/restaurante_repository_impl.dart'
+    as _i690;
+import '../../modules/restaurante_details/domain/repository/restaurante_data_source.dart'
+    as _i818;
+import '../../modules/restaurante_details/domain/repository/restaurante_repository.dart'
+    as _i660;
+import '../../modules/restaurante_details/presentation/bloc/restaurante_detalhe_bloc.dart'
+    as _i414;
 import '../../modules/restaurants/data/restaurante_remote_data_source.dart'
     as _i17;
 import '../../modules/restaurants/data/restaurante_repository_impl.dart'
@@ -83,6 +93,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i465.RestauranteRemoteDataSource>(
       () => _i17.RestauranteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
+    gh.lazySingleton<_i818.RestauranteDataSource>(
+      () => _i62.RestauranteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
+    gh.lazySingleton<_i660.RestauranteDetailRepository>(
+      () => _i690.RestauranteRepositoryImpl(gh<_i818.RestauranteDataSource>()),
+    );
+    gh.factory<_i414.RestauranteDetalheBloc>(
+      () =>
+          _i414.RestauranteDetalheBloc(gh<_i660.RestauranteDetailRepository>()),
     );
     gh.lazySingleton<_i280.RestauranteRepository>(
       () => _i569.RestauranteRepositoryImpl(

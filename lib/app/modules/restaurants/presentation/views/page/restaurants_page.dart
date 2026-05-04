@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../config/auto_router/routes_imports.gr.dart';
 import '../../bloc/restaurante_bloc.dart';
 import '../../bloc/restaurante_state.dart';
 
@@ -21,9 +22,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
         return state.when(
           initial: () => const SizedBox(),
 
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          loading: () => const Center(child: CircularProgressIndicator()),
 
           loaded: (restaurantes) {
             return ListView.builder(
@@ -31,19 +30,25 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
               itemBuilder: (_, i) {
                 final r = restaurantes[i];
 
-                return Card(
-                  child: ListTile(
-                    title: Text(r.nome),
-                    subtitle: Text(r.descricao),
+                return InkWell(
+                  onTap: () {
+                    print('clicou no restaurante ${r.nome}');
+                    context.router.push(
+                      RestauranteDetalhePageRoute(restaurante: r),
+                    );
+                  },
+                  child: Card(
+                    child: ListTile(
+                      title: Text(r.nome),
+                      subtitle: Text(r.descricao),
+                    ),
                   ),
                 );
               },
             );
           },
 
-          error: (message) => Center(
-            child: Text(message),
-          ),
+          error: (message) => Center(child: Text(message)),
         );
       },
     );

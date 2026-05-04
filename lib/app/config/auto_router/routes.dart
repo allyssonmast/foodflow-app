@@ -4,23 +4,25 @@ part of 'routes_imports.dart';
 class AppRouter extends RootStackRouter {
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();
+
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(
-          initial: true,
-          guards: [AuthGuard()],
-          page: LoginPageRoute.page,
-          path: LOGIN,
-        ),
-        AutoRoute(
-          page: DashboardPageRoute.page,
-          path: DASHBOARD,
-          children: [
-            RedirectRoute(path: '', redirectTo: RESTAURANTS),
-            AutoRoute(page: RestaurantsPageRoute.page, path: RESTAURANTS),
-            AutoRoute(page: OrdersPageRoute.page, path: ORDERS),
-            AutoRoute(page: SettingsPageRoute.page, path: SETTINGS),
-          ],
-        ),
-      ];
+    AutoRoute(
+      initial: true,
+      guards: [AuthGuard()],
+      page: LoginPageRoute.page,
+      path: LOGIN,
+    ),
+    AutoRoute(
+      page: DashboardPageRoute.page,
+      path: DASHBOARD,
+      children: [
+        RedirectRoute(path: '', redirectTo: RESTAURANTS),
+        AutoRoute(page: RestaurantsPageRoute.page, path: RESTAURANTS),
+        AutoRoute(page: OrdersPageRoute.page, path: ORDERS),
+        AutoRoute(page: SettingsPageRoute.page, path: SETTINGS),
+      ],
+    ),
+    AutoRoute(page: RestauranteDetalhePageRoute.page, path: RESTAURANT_DETAIL),
+  ];
 }
