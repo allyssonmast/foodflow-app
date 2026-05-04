@@ -1,0 +1,39 @@
+name: foodflow
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  auto_route:
+  bloc:
+  flutter_bloc:
+  get_it:
+  injectable:
+  json_annotation:
+  freezed_annotation:
+  equatable:
+  dartz:
+  flutter_screenutil:
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  auto_route_generator:
+  build_runner:
+  freezed:
+  injectable_generator:
+  json_serializable:
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
