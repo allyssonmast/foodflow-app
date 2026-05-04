@@ -9,8 +9,23 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+
+import '../../modules/auth/data/datasources/auth_remote_data_source.dart'
+    as _i214;
+import '../../modules/auth/data/datasources/auth_remote_data_source_impl.dart'
+    as _i305;
+import '../../modules/auth/data/repositories/auth_repository_impl.dart'
+    as _i817;
+import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
+import '../../modules/auth/presentation/bloc/auth_bloc.dart' as _i501;
+import '../auth/api_client.dart' as _i446;
+import '../storage/auth_local_data_source.dart' as _i665;
+import '../storage/auth_local_data_source_impl.dart' as _i907;
+import 'register_module.dart' as _i291;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -18,7 +33,28 @@ extension GetItInjectableX on _i174.GetIt {
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    _i526.GetItHelper(this, environment, environmentFilter);
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final registerModule = _$RegisterModule();
+    gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
+    gh.lazySingleton<_i558.FlutterSecureStorage>(() => registerModule.storage);
+    gh.lazySingleton<_i446.ApiClient>(() => _i446.ApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i214.AuthRemoteDataSource>(
+      () => _i305.AuthRemoteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
+    gh.lazySingleton<_i665.AuthLocalDataSource>(
+      () => _i907.AuthLocalDataSourceImpl(gh<_i558.FlutterSecureStorage>()),
+    );
+    gh.lazySingleton<_i779.AuthRepository>(
+      () => _i817.AuthRepositoryImpl(
+        gh<_i214.AuthRemoteDataSource>(),
+        gh<_i665.AuthLocalDataSource>(),
+      ),
+    );
+    gh.factory<_i501.AuthBloc>(
+      () => _i501.AuthBloc(gh<_i779.AuthRepository>()),
+    );
     return this;
   }
 }
+
+class _$RegisterModule extends _i291.RegisterModule {}

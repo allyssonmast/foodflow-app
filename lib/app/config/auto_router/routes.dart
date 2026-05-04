@@ -8,6 +8,11 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           initial: true,
+          guards: [AuthGuard()],
+          page: LoginPageRoute.page,
+          path: LOGIN,
+        ),
+        AutoRoute(
           page: DashboardPageRoute.page,
           path: DASHBOARD,
           children: [
