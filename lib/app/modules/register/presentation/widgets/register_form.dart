@@ -15,69 +15,215 @@ class RegisterForm extends StatefulWidget {
   State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-  final nomeController = TextEditingController();
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final senhaController = TextEditingController();
+class _RegisterFormState extends State<RegisterForm>
+    with SingleTickerProviderStateMixin {
+
+  late final TabController _tabController;
+
+  final clienteUsernameController = TextEditingController();
+  final clienteNomeController = TextEditingController();
+  final clienteEmailController = TextEditingController();
+  final clienteSenhaController = TextEditingController();
+
+  final restauranteUsernameController = TextEditingController();
+  final restauranteNomeController = TextEditingController();
+  final restauranteDescricaoController = TextEditingController();
+  final restauranteEnderecoController = TextEditingController();
+  final restauranteSenhaController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            controller: nomeController,
-            decoration: const InputDecoration(
-              labelText: 'Nome',
-            ),
-          ),
-          TextField(
-            controller: usernameController,
-            decoration: const InputDecoration(
-              labelText: 'Username',
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: emailController,
-            decoration: const InputDecoration(
-              labelText: 'Email',
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: senhaController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: 'Senha',
-            ),
-          ),
+    return Column(
+      children: [
 
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: widget.loading
-                  ? null
-                  : () {
-                context.read<RegisterBloc>().add(
-                    RegisterSubmitted(
-                      username: usernameController.text,
-                      nome: nomeController.text,
-                      email: emailController.text,
-                      senha: senhaController.text,
+        TabBar(
+          controller: _tabController,
+          tabs: const [
+            Tab(text: 'Cliente'),
+            Tab(text: 'Restaurante'),
+          ],
+        ),
+
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+
+              /// CLIENTE
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+
+                    TextField(
+                      controller: clienteUsernameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Username',
+                      ),
                     ),
-                );
-              },
-              child: widget.loading
-                  ? const CircularProgressIndicator()
-                  : const Text('Cadastrar'),
-            ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: clienteNomeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Nome',
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: clienteEmailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: clienteSenhaController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Senha',
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: widget.loading
+                            ? null
+                            : () {
+
+                          context.read<RegisterBloc>().add(
+                            RegisterClienteSubmitted(
+                              username:
+                              clienteUsernameController.text,
+                              nome:
+                              clienteNomeController.text,
+                              email:
+                              clienteEmailController.text,
+                              senha:
+                              clienteSenhaController.text,
+                            ),
+                          );
+                        },
+                        child: widget.loading
+                            ? const CircularProgressIndicator()
+                            : const Text('Cadastrar Cliente'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              /// RESTAURANTE
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+
+                    TextField(
+                      controller: restauranteUsernameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Username',
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: restauranteNomeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Nome do Restaurante',
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: restauranteDescricaoController,
+                      decoration: const InputDecoration(
+                        labelText: 'Descrição',
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: restauranteEnderecoController,
+                      decoration: const InputDecoration(
+                        labelText: 'Endereço',
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextField(
+                      controller: restauranteSenhaController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Senha',
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: widget.loading
+                            ? null
+                            : () {
+
+                          context.read<RegisterBloc>().add(
+                            RegisterRestauranteSubmitted(
+                              username:
+                              restauranteUsernameController.text,
+                              nome:
+                              restauranteNomeController.text,
+                              descricao:
+                              restauranteDescricaoController.text,
+                              endereco:
+                              restauranteEnderecoController.text,
+                              senha:
+                              restauranteSenhaController.text,
+                            ),
+                          );
+                        },
+                        child: widget.loading
+                            ? const CircularProgressIndicator()
+                            : const Text('Cadastrar Restaurante'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,15 +1,17 @@
-class RegisterClienteRequest {
+class RegisterRestauranteRequest {
 
   final String username;
   final String password;
   final String nome;
-  final String email;
+  final String descricao;
+  final String endereco;
 
-  RegisterClienteRequest({
+  RegisterRestauranteRequest({
     required this.username,
     required this.password,
     required this.nome,
-    required this.email,
+    required this.descricao,
+    required this.endereco,
   });
 
   Map<String, dynamic> toJson() {
@@ -18,7 +20,8 @@ class RegisterClienteRequest {
       'username': username,
       'password': password,
       'nome': nome,
-      'email': email,
+      'descricao': descricao,
+      'endereco': endereco,
     };
   }
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../models/register_request.dart';
+import '../models/register_restaurant.dart';
 
 @lazySingleton
 class RegisterDatasource {
@@ -9,10 +10,11 @@ class RegisterDatasource {
 
   RegisterDatasource(this.dio);
 
-  Future<void> register(RegisterRequest request) async {
-    await dio.post(
-      '/auth/register/cliente',
-      data: request.toJson(),
-    );
+  Future<void> registerCliente(RegisterClienteRequest request) async {
+    await dio.post('/auth/register/cliente', data: request.toJson());
+  }
+
+  Future<void> registerRestaurante(RegisterRestauranteRequest request) async {
+    await dio.post('/auth/register/restaurante', data: request.toJson());
   }
 }
