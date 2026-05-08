@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
               switch (role) {
                 case UserRole.restaurante:
                   context.router.replaceAll([
-                    const RestauranteDashboardRoute(),
+                    const RestauranteDashboardPageRoute(),
                   ]);
 
                   break;

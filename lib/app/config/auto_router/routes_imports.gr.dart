@@ -19,7 +19,8 @@ import 'package:foodflow/app/modules/orders/presentation/views/page/orders_page.
     as _i3;
 import 'package:foodflow/app/modules/register/presentation/pages/register_page.dart'
     as _i4;
-import 'package:foodflow/app/modules/restaurant/restaurante_page.dart' as _i5;
+import 'package:foodflow/app/modules/restaurant/presentation/page/restaurante_page.dart'
+    as _i5;
 import 'package:foodflow/app/modules/restaurante_details/presentation/view/restaurante_details_page.dart'
     as _i6;
 import 'package:foodflow/app/modules/restaurants/domain/model/restaurante_model.dart'
@@ -95,17 +96,17 @@ class RegisterPageRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.RestauranteDashboard]
-class RestauranteDashboardRoute extends _i10.PageRouteInfo<void> {
-  const RestauranteDashboardRoute({List<_i10.PageRouteInfo>? children})
-    : super(RestauranteDashboardRoute.name, initialChildren: children);
+/// [_i5.RestauranteDashboardPage]
+class RestauranteDashboardPageRoute extends _i10.PageRouteInfo<void> {
+  const RestauranteDashboardPageRoute({List<_i10.PageRouteInfo>? children})
+    : super(RestauranteDashboardPageRoute.name, initialChildren: children);
 
-  static const String name = 'RestauranteDashboardRoute';
+  static const String name = 'RestauranteDashboardPageRoute';
 
   static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i5.RestauranteDashboard();
+      return const _i5.RestauranteDashboardPage();
     },
   );
 }

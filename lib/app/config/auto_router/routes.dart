@@ -24,7 +24,7 @@ class AppRouter extends RootStackRouter {
 
     AutoRoute(
       guards: [AuthGuard()],
-      page: RestauranteDashboardRoute.page,
+      page: RestauranteDashboardPageRoute.page,
       path: RESTAURANTE,
     ),
     AutoRoute(

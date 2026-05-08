@@ -7,6 +7,7 @@ import 'app/config/auto_router/routes_imports.dart';
 import 'app/config/dependence_injection/injection.dart';
 import 'app/modules/auth/presentation/bloc/auth_bloc.dart';
 import 'app/modules/auth/presentation/bloc/auth_event.dart';
+import 'app/modules/restaurant/presentation/bloc/restaurante_bloc.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,6 +27,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (_) => getIt<RegisterBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<RestauranteBloc>(),
         ),
       ],
       child: ScreenUtilInit(

@@ -16,62 +16,42 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-
   @override
   void initState() {
     super.initState();
 
-    context.read<AuthBloc>().add(
-      const AuthEvent.checkAuth(),
-    );
+    context.read<AuthBloc>().add(const AuthEvent.checkAuth());
   }
 
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<AuthBloc, AuthState>(
-
       listener: (context, state) {
-
         state.whenOrNull(
-
           authenticated: (role) {
-
             switch (role) {
-
               case UserRole.restaurante:
-
                 context.router.replaceAll([
-                  const RestauranteDashboardRoute(),
+                  const RestauranteDashboardPageRoute(),
                 ]);
 
                 break;
 
               case UserRole.admin:
               case UserRole.cliente:
-
-                context.router.replaceAll([
-                  const DashboardPageRoute(),
-                ]);
+                context.router.replaceAll([const DashboardPageRoute()]);
 
                 break;
             }
           },
 
           unauthenticated: () {
-
-            context.router.replaceAll([
-              const LoginPageRoute(),
-            ]);
+            context.router.replaceAll([const LoginPageRoute()]);
           },
         );
       },
 
-      child: const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      child: const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }
