@@ -24,6 +24,7 @@ dependencies:
   flutter_screenutil:
   dio:
   flutter_secure_storage:
+  jwt_decoder: ^2.0.1
 
   cupertino_icons: ^1.0.2
 

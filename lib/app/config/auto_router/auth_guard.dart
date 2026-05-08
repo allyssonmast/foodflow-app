@@ -3,7 +3,6 @@ import 'package:foodflow/app/config/auto_router/routes_imports.gr.dart';
 
 import '../../modules/auth/presentation/bloc/auth_bloc.dart';
 import '../../modules/auth/presentation/bloc/auth_state.dart';
-import '../../modules/auth/presentation/bloc/auth_event.dart';
 import '../dependence_injection/injection.dart';
 
 class AuthGuard extends AutoRouteGuard {
@@ -15,7 +14,7 @@ class AuthGuard extends AutoRouteGuard {
       StackRouter router,
       ) {
     final isAuthenticated = authBloc.state.maybeWhen(
-      authenticated: () => true,
+      authenticated: (role) => true,
       orElse: () => false,
     );
 

@@ -7,7 +7,6 @@ import '../auth/presentation/bloc/auth_bloc.dart';
 import '../auth/presentation/bloc/auth_event.dart';
 import '../auth/presentation/bloc/auth_state.dart';
 
-
 @RoutePage()
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -29,21 +28,45 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<AuthBloc, AuthState>(
+
       listener: (context, state) {
+
         state.whenOrNull(
-          authenticated: () {
-            context.router.replace(
-              const DashboardPageRoute(),
-            );
+
+          authenticated: (role) {
+
+            switch (role) {
+
+              case UserRole.restaurante:
+
+                context.router.replaceAll([
+                  const RestauranteDashboardRoute(),
+                ]);
+
+                break;
+
+              case UserRole.admin:
+              case UserRole.cliente:
+
+                context.router.replaceAll([
+                  const DashboardPageRoute(),
+                ]);
+
+                break;
+            }
           },
+
           unauthenticated: () {
-            context.router.replace(
+
+            context.router.replaceAll([
               const LoginPageRoute(),
-            );
+            ]);
           },
         );
       },
+
       child: const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),

@@ -1,6 +1,7 @@
 const RESTAURANTS = 'restaurants';
 const RESTAURANT_DETAIL = '/restaurant-detail';
 const DASHBOARD = '/dashboard';
+const RESTAURANTE = '/restaurante';
 const ORDERS = 'orders';
 const SETTINGS = 'settings';
 const LOGIN = '/login';
