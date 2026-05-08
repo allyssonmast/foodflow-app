@@ -19,18 +19,16 @@ class LoginPage extends StatelessWidget {
         listener: (context, state) {
           state.whenOrNull(
             authenticated: () {
-              context.pushRoute(const DashboardPageRoute());
+              context.router.replaceAll([const DashboardPageRoute()]);
             },
             error: (message) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(message)));
             },
           );
         },
-        child: const Center(
-          child: LoginForm(),
-        ),
+        child: const Center(child: LoginForm()),
       ),
     );
   }

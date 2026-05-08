@@ -22,6 +22,10 @@ import '../../modules/auth/data/repositories/auth_repository_impl.dart'
     as _i817;
 import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
 import '../../modules/auth/presentation/bloc/auth_bloc.dart' as _i501;
+import '../../modules/register/data/datasource/register_datasource.dart'
+    as _i591;
+import '../../modules/register/data/register_service.dart' as _i758;
+import '../../modules/register/presentation/bloc/register_bloc.dart' as _i476;
 import '../../modules/restaurante_details/data/restaurante_data_source_impl.dart'
     as _i62;
 import '../../modules/restaurante_details/data/restaurante_repository_impl.dart'
@@ -67,14 +71,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => registerModule.storage);
     gh.lazySingleton<_i446.ApiClient>(() => _i446.ApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i635.ClienteRemoteDataSource>(
-      () => _i1040.ClienteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
+    gh.lazySingleton<_i591.RegisterDatasource>(
+      () => _i591.RegisterDatasource(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i214.AuthRemoteDataSource>(
       () => _i305.AuthRemoteDataSourceImpl(gh<_i446.ApiClient>()),
     );
+    gh.lazySingleton<_i635.ClienteRemoteDataSource>(
+      () => _i1040.ClienteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
+    gh.lazySingleton<_i818.RestauranteDataSource>(
+      () => _i62.RestauranteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
     gh.lazySingleton<_i665.AuthLocalDataSource>(
       () => _i907.AuthLocalDataSourceImpl(gh<_i558.FlutterSecureStorage>()),
+    );
+    gh.lazySingleton<_i465.RestauranteRemoteDataSource>(
+      () => _i17.RestauranteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
+    );
+    gh.lazySingleton<_i856.ClienteRepository>(
+      () => _i678.ClienteRepositoryImpl(gh<_i635.ClienteRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i758.RegisterService>(
+      () => _i758.RegisterService(gh<_i591.RegisterDatasource>()),
     );
     gh.lazySingleton<_i779.AuthRepository>(
       () => _i817.AuthRepositoryImpl(
@@ -82,27 +101,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i665.AuthLocalDataSource>(),
       ),
     );
-    gh.factory<_i501.AuthBloc>(
-      () => _i501.AuthBloc(gh<_i779.AuthRepository>()),
-    );
-    gh.lazySingleton<_i856.ClienteRepository>(
-      () => _i678.ClienteRepositoryImpl(gh<_i635.ClienteRemoteDataSource>()),
-    );
     gh.factory<_i887.ClienteBloc>(
       () => _i887.ClienteBloc(gh<_i856.ClienteRepository>()),
     );
-    gh.lazySingleton<_i465.RestauranteRemoteDataSource>(
-      () => _i17.RestauranteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
-    );
-    gh.lazySingleton<_i818.RestauranteDataSource>(
-      () => _i62.RestauranteDataSourceImpl(gh<_i446.ApiClient>()),
-    );
     gh.lazySingleton<_i660.RestauranteDetailRepository>(
       () => _i690.RestauranteRepositoryImpl(gh<_i818.RestauranteDataSource>()),
-    );
-    gh.factory<_i414.RestauranteDetalheBloc>(
-      () =>
-          _i414.RestauranteDetalheBloc(gh<_i660.RestauranteDetailRepository>()),
     );
     gh.lazySingleton<_i280.RestauranteRepository>(
       () => _i569.RestauranteRepositoryImpl(
@@ -111,6 +114,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i337.RestauranteBloc>(
       () => _i337.RestauranteBloc(gh<_i280.RestauranteRepository>()),
+    );
+    gh.factory<_i414.RestauranteDetalheBloc>(
+      () =>
+          _i414.RestauranteDetalheBloc(gh<_i660.RestauranteDetailRepository>()),
+    );
+    gh.factory<_i501.AuthBloc>(
+      () => _i501.AuthBloc(gh<_i779.AuthRepository>()),
+    );
+    gh.factory<_i476.RegisterBloc>(
+      () => _i476.RegisterBloc(gh<_i758.RegisterService>()),
     );
     return this;
   }

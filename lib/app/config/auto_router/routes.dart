@@ -8,14 +8,24 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(
-      initial: true,
-      guards: [AuthGuard()],
       page: LoginPageRoute.page,
       path: LOGIN,
     ),
     AutoRoute(
+      page: RegisterPageRoute.page,
+      path: REGISTER,
+    ),
+    AutoRoute(
+
+      guards: [AuthGuard()],
+      page: SplashPageRoute.page,
+      path: '/',
+    ),
+    AutoRoute(
       page: DashboardPageRoute.page,
       path: DASHBOARD,
+      initial: true,
+      guards: [AuthGuard()],
       children: [
         RedirectRoute(path: '', redirectTo: RESTAURANTS),
         AutoRoute(page: RestaurantsPageRoute.page, path: RESTAURANTS),

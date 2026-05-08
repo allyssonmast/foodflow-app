@@ -9,7 +9,7 @@ class ApiClient {
   final Dio dio;
 
   ApiClient(this.dio) {
-    dio.options.baseUrl = "http://192.168.0.5:8080";
+    dio.options.baseUrl = "http://192.168.0.9:8080";
 
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {

@@ -10,32 +10,19 @@ class AuthGuard extends AutoRouteGuard {
   final AuthBloc authBloc = getIt<AuthBloc>();
 
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final state = authBloc.state;
-
-    final isLoadingOrInitial = state.maybeWhen(
-      initial: () => true,
-      loading: () => true,
+  void onNavigation(
+      NavigationResolver resolver,
+      StackRouter router,
+      ) {
+    final isAuthenticated = authBloc.state.maybeWhen(
+      authenticated: () => true,
       orElse: () => false,
     );
 
-    if (isLoadingOrInitial) {
-      authBloc.add(const AuthEvent.checkAuth());
-      await Future.delayed(const Duration(milliseconds: 300));
+    if (isAuthenticated) {
+      router.push(const LoginPageRoute());
+    } else {
+      resolver.next();
     }
-
-    final currentState = authBloc.state;
-
-    currentState.when(
-      initial: () => resolver.next(false),
-      loading: () => resolver.next(false),
-      authenticated: () => resolver.next(true),
-      unauthenticated: () {
-        router.replaceAll([const LoginPageRoute()]);
-      },
-      error: (_) {
-        router.replaceAll([const LoginPageRoute()]);
-      },
-    );
   }
 }

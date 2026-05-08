@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/auto_router/routes_imports.gr.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -32,29 +34,50 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               TextField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'User Name'),
+                decoration: const InputDecoration(
+                  labelText: 'User Name',
+                ),
               ),
               const SizedBox(height: 16),
               TextField(
                 controller: senhaController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Senha'),
+                decoration: const InputDecoration(
+                  labelText: 'Senha',
+                ),
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isLoading
+                      ? null
+                      : () {
+                    context.read<AuthBloc>().add(
+                      AuthEvent.login(
+                        emailController.text,
+                        senhaController.text,
+                      ),
+                    );
+                  },
+                  child: isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text('Entrar'),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              TextButton(
                 onPressed: isLoading
                     ? null
                     : () {
-                  context.read<AuthBloc>().add(
-                    AuthEvent.login(
-                      emailController.text,
-                      senhaController.text,
-                    ),
+                  context.router.push(
+                    const RegisterPageRoute(),
                   );
                 },
-                child: isLoading
-                    ? const CircularProgressIndicator()
-                    : const Text('Entrar'),
+                child: const Text('Criar conta'),
               ),
             ],
           ),

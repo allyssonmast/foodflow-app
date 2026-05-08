@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodflow/app/modules/register/presentation/bloc/register_bloc.dart';
 
 import 'app/config/auto_router/routes_imports.dart';
 import 'app/config/dependence_injection/injection.dart';
@@ -21,7 +22,10 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => getIt<AuthBloc>()..add(const AuthEvent.checkAuth()),
+          create: (_) => getIt<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<RegisterBloc>(),
         ),
       ],
       child: ScreenUtilInit(
