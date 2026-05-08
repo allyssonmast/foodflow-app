@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodflow/app/modules/restaurant/presentation/page/produto_form_page.dart';
 
+import '../../../../config/auto_router/routes_imports.gr.dart';
 import '../../../../config/dependence_injection/injection.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_event.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 import '../bloc/restaurante_bloc.dart';
 import '../bloc/restaurante_event.dart';
 import '../bloc/restaurante_state.dart';
@@ -15,11 +19,31 @@ class RestauranteDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<RestauranteBloc>()..add(LoadProdutos()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<RestauranteBloc>()..add(LoadProdutos()),
+        ),
+
+        BlocProvider.value(value: getIt<AuthBloc>()),
+      ],
 
       child: Scaffold(
-        appBar: AppBar(title: const Text('Meus Produtos')),
+        appBar: AppBar(
+          title: const Text('Meus Produtos'),
+
+          actions: [
+            IconButton(
+              onPressed: () async {
+                context.read<AuthBloc>().add(const AuthEvent.logout());
+
+                context.router.replaceAll([const LoginPageRoute()]);
+              },
+
+              icon: const Icon(Icons.logout),
+            ),
+          ],
+        ),
 
         floatingActionButton: Builder(
           builder: (context) {
@@ -54,7 +78,9 @@ class RestauranteDashboardPage extends StatelessWidget {
 
               loaded: (produtos) {
                 if (produtos.isEmpty) {
-                  return const Center(child: Text('Nenhum produto cadastrado'));
+                  return const Center(
+                    child: Text('Nenhum produto cadastrado'),
+                  );
                 }
 
                 return ListView.builder(
