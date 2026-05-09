@@ -39,6 +39,13 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SettingsPageRoute.page, path: SETTINGS),
       ],
     ),
-    AutoRoute(page: RestauranteDetalhePageRoute.page, path: RESTAURANT_DETAIL),
+    AutoRoute(
+        page: RestauranteDetalhePageRoute.page,
+        path: RESTAURANT_DETAIL,
+    ),
+    AutoRoute(
+        page: CheckoutPageRoute.page,
+        path: CHECKOUT
+    )
   ];
 }

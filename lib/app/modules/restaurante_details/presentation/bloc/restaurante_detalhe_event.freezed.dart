@@ -125,10 +125,10 @@ return removeItem(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int restauranteId)?  load,TResult Function( ProdutoModel produto)?  addItem,TResult Function( ProdutoModel produto)?  removeItem,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( RestauranteModel restaurante)?  load,TResult Function( ProdutoModel produto)?  addItem,TResult Function( ProdutoModel produto)?  removeItem,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Load() when load != null:
-return load(_that.restauranteId);case _AddItem() when addItem != null:
+return load(_that.restaurante);case _AddItem() when addItem != null:
 return addItem(_that.produto);case _RemoveItem() when removeItem != null:
 return removeItem(_that.produto);case _:
   return orElse();
@@ -148,10 +148,10 @@ return removeItem(_that.produto);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int restauranteId)  load,required TResult Function( ProdutoModel produto)  addItem,required TResult Function( ProdutoModel produto)  removeItem,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( RestauranteModel restaurante)  load,required TResult Function( ProdutoModel produto)  addItem,required TResult Function( ProdutoModel produto)  removeItem,}) {final _that = this;
 switch (_that) {
 case _Load():
-return load(_that.restauranteId);case _AddItem():
+return load(_that.restaurante);case _AddItem():
 return addItem(_that.produto);case _RemoveItem():
 return removeItem(_that.produto);case _:
   throw StateError('Unexpected subclass');
@@ -170,10 +170,10 @@ return removeItem(_that.produto);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int restauranteId)?  load,TResult? Function( ProdutoModel produto)?  addItem,TResult? Function( ProdutoModel produto)?  removeItem,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( RestauranteModel restaurante)?  load,TResult? Function( ProdutoModel produto)?  addItem,TResult? Function( ProdutoModel produto)?  removeItem,}) {final _that = this;
 switch (_that) {
 case _Load() when load != null:
-return load(_that.restauranteId);case _AddItem() when addItem != null:
+return load(_that.restaurante);case _AddItem() when addItem != null:
 return addItem(_that.produto);case _RemoveItem() when removeItem != null:
 return removeItem(_that.produto);case _:
   return null;
@@ -187,10 +187,10 @@ return removeItem(_that.produto);case _:
 
 
 class _Load implements RestauranteDetalheEvent {
-  const _Load(this.restauranteId);
+  const _Load(this.restaurante);
   
 
- final  int restauranteId;
+ final  RestauranteModel restaurante;
 
 /// Create a copy of RestauranteDetalheEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -202,16 +202,16 @@ _$LoadCopyWith<_Load> get copyWith => __$LoadCopyWithImpl<_Load>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Load&&(identical(other.restauranteId, restauranteId) || other.restauranteId == restauranteId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Load&&(identical(other.restaurante, restaurante) || other.restaurante == restaurante));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,restauranteId);
+int get hashCode => Object.hash(runtimeType,restaurante);
 
 @override
 String toString() {
-  return 'RestauranteDetalheEvent.load(restauranteId: $restauranteId)';
+  return 'RestauranteDetalheEvent.load(restaurante: $restaurante)';
 }
 
 
@@ -222,7 +222,7 @@ abstract mixin class _$LoadCopyWith<$Res> implements $RestauranteDetalheEventCop
   factory _$LoadCopyWith(_Load value, $Res Function(_Load) _then) = __$LoadCopyWithImpl;
 @useResult
 $Res call({
- int restauranteId
+ RestauranteModel restaurante
 });
 
 
@@ -239,10 +239,10 @@ class __$LoadCopyWithImpl<$Res>
 
 /// Create a copy of RestauranteDetalheEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? restauranteId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? restaurante = null,}) {
   return _then(_Load(
-null == restauranteId ? _self.restauranteId : restauranteId // ignore: cast_nullable_to_non_nullable
-as int,
+null == restaurante ? _self.restaurante : restaurante // ignore: cast_nullable_to_non_nullable
+as RestauranteModel,
   ));
 }
 

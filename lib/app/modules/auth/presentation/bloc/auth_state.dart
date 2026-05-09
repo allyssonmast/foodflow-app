@@ -12,6 +12,7 @@ class AuthState with _$AuthState {
   const factory AuthState.loading() = _Loading;
 
   const factory AuthState.authenticated({
+    required int userId,
     required UserRole role,
   }) = _Authenticated;
 

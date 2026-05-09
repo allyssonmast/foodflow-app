@@ -12,8 +12,9 @@ class RestauranteDataSourceImpl implements RestauranteDataSource {
 
   @override
   Future<List<ProdutoModel>> getProdutos(int restauranteId) async {
-    final response =
-    await apiClient.dio.get("/restaurantes/$restauranteId/produtos");
+    final response = await apiClient.dio.get(
+      "/produtos/restaurante/$restauranteId",
+    );
 
     final List data = response.data;
 

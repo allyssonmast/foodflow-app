@@ -2,7 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/auto_router/routes_imports.gr.dart';
 import '../../../../config/dependence_injection/injection.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../checkout/domain/checkout_model.dart';
 import '../../../restaurants/domain/model/restaurante_model.dart';
 import '../bloc/restaurante_detalhe_bloc.dart';
 import '../bloc/restaurante_detalhe_event.dart';
@@ -23,7 +27,7 @@ class RestauranteDetalhePage extends StatelessWidget {
       providers: [
         BlocProvider<RestauranteDetalheBloc>(
           create: (_) => getIt<RestauranteDetalheBloc>()
-            ..add( RestauranteDetalheEvent.load(restaurante.id)),
+            ..add( RestauranteDetalheEvent.load(restaurante)),
         ),
       ],
       child: Scaffold(
@@ -159,10 +163,29 @@ class _CarrinhoFooter extends StatelessWidget {
                   onPressed: totalItens == 0
                       ? null
                       : () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Ir para checkout")),
-                          );
-                        },
+
+                    final authState =
+                        context.read<AuthBloc>().state;
+
+                    final clienteId = authState.maybeWhen(
+                      authenticated: (userId, role) => userId,
+                      orElse: () => null,
+                    );
+
+                    final checkout = CheckoutModel(
+                      clienteId: clienteId!,
+                      restauranteId: state.restaurante!.id,
+                      itens: state.carrinho.values.toList(),
+                      metodoPagamento: MetodoPagamento.pix,
+                      total: totalPreco,
+                    );
+
+                    context.router.push(
+                      CheckoutPageRoute(
+                        checkout: checkout,
+                      ),
+                    );
+                  },
                   child: const Text("Concluir compra"),
                 ),
               ),

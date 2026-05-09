@@ -38,7 +38,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final role = _mapRole(decoded['role']);
 
-      emit(AuthState.authenticated(role: role));
+      final userId = decoded['id'];
+
+      emit(AuthState.authenticated(role: role, userId: userId));
     } catch (e) {
       emit(AuthState.error(e.toString()));
     }
@@ -66,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final role = _mapRole(decoded['role']);
 
-      emit(AuthState.authenticated(role: role));
+      emit(AuthState.authenticated(role: role, userId: decoded['id']));
     } catch (e) {
       emit(const AuthState.unauthenticated());
     }

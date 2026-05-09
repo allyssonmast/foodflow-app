@@ -14,7 +14,7 @@ class AuthGuard extends AutoRouteGuard {
       StackRouter router,
       ) {
     final isAuthenticated = authBloc.state.maybeWhen(
-      authenticated: (role) => true,
+      authenticated: (userId, role) => true,
       orElse: () => false,
     );
 

@@ -22,6 +22,13 @@ import '../../modules/auth/data/repositories/auth_repository_impl.dart'
     as _i817;
 import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
 import '../../modules/auth/presentation/bloc/auth_bloc.dart' as _i501;
+import '../../modules/checkout/data/checkout_datasource.dart' as _i755;
+import '../../modules/checkout/data/checkout_datasource_imp.dart' as _i281;
+import '../../modules/checkout/data/checkout_repository_impl.dart' as _i205;
+import '../../modules/checkout/domain/checkout_model.dart' as _i584;
+import '../../modules/checkout/domain/checkout_repository.dart' as _i437;
+import '../../modules/checkout/domain/finalizar_checkout_usecase.dart' as _i986;
+import '../../modules/checkout/presentation/bloc/checkout_bloc.dart' as _i526;
 import '../../modules/register/data/datasource/register_datasource.dart'
     as _i591;
 import '../../modules/register/data/register_service.dart' as _i758;
@@ -85,6 +92,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i514.ProdutoService>(
       () => _i514.ProdutoService(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i755.CheckoutDatasource>(
+      () => _i281.CheckoutDatasourceImpl(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i214.AuthRemoteDataSource>(
       () => _i305.AuthRemoteDataSourceImpl(gh<_i446.ApiClient>()),
     );
@@ -108,6 +118,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i758.RegisterService>(
       () => _i758.RegisterService(gh<_i591.RegisterDatasource>()),
+    );
+    gh.lazySingleton<_i437.CheckoutRepository>(
+      () => _i205.CheckoutRepositoryImpl(gh<_i755.CheckoutDatasource>()),
     );
     gh.lazySingleton<_i779.AuthRepository>(
       () => _i817.AuthRepositoryImpl(
@@ -138,6 +151,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i476.RegisterBloc>(
       () => _i476.RegisterBloc(gh<_i758.RegisterService>()),
+    );
+    gh.factory<_i986.FinalizarCheckoutUsecase>(
+      () => _i986.FinalizarCheckoutUsecase(gh<_i437.CheckoutRepository>()),
+    );
+    gh.factoryParam<_i526.CheckoutBloc, _i584.CheckoutModel, dynamic>(
+      (checkout, _) =>
+          _i526.CheckoutBloc(gh<_i986.FinalizarCheckoutUsecase>(), checkout),
     );
     return this;
   }

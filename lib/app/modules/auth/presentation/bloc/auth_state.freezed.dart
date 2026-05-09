@@ -131,12 +131,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( UserRole role)?  authenticated,TResult Function()?  unauthenticated,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( int userId,  UserRole role)?  authenticated,TResult Function()?  unauthenticated,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Authenticated() when authenticated != null:
-return authenticated(_that.role);case _Unauthenticated() when unauthenticated != null:
+return authenticated(_that.userId,_that.role);case _Unauthenticated() when unauthenticated != null:
 return unauthenticated();case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
@@ -156,12 +156,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( UserRole role)  authenticated,required TResult Function()  unauthenticated,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( int userId,  UserRole role)  authenticated,required TResult Function()  unauthenticated,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Authenticated():
-return authenticated(_that.role);case _Unauthenticated():
+return authenticated(_that.userId,_that.role);case _Unauthenticated():
 return unauthenticated();case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
@@ -180,12 +180,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( UserRole role)?  authenticated,TResult? Function()?  unauthenticated,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( int userId,  UserRole role)?  authenticated,TResult? Function()?  unauthenticated,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Authenticated() when authenticated != null:
-return authenticated(_that.role);case _Unauthenticated() when unauthenticated != null:
+return authenticated(_that.userId,_that.role);case _Unauthenticated() when unauthenticated != null:
 return unauthenticated();case _Error() when error != null:
 return error(_that.message);case _:
   return null;
@@ -263,9 +263,10 @@ String toString() {
 
 
 class _Authenticated implements AuthState {
-  const _Authenticated({required this.role});
+  const _Authenticated({required this.userId, required this.role});
   
 
+ final  int userId;
  final  UserRole role;
 
 /// Create a copy of AuthState
@@ -278,16 +279,16 @@ _$AuthenticatedCopyWith<_Authenticated> get copyWith => __$AuthenticatedCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Authenticated&&(identical(other.role, role) || other.role == role));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Authenticated&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.role, role) || other.role == role));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,role);
+int get hashCode => Object.hash(runtimeType,userId,role);
 
 @override
 String toString() {
-  return 'AuthState.authenticated(role: $role)';
+  return 'AuthState.authenticated(userId: $userId, role: $role)';
 }
 
 
@@ -298,7 +299,7 @@ abstract mixin class _$AuthenticatedCopyWith<$Res> implements $AuthStateCopyWith
   factory _$AuthenticatedCopyWith(_Authenticated value, $Res Function(_Authenticated) _then) = __$AuthenticatedCopyWithImpl;
 @useResult
 $Res call({
- UserRole role
+ int userId, UserRole role
 });
 
 
@@ -315,9 +316,10 @@ class __$AuthenticatedCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? role = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? role = null,}) {
   return _then(_Authenticated(
-role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as UserRole,
   ));
 }

@@ -21,10 +21,15 @@ class RestauranteDetalheBloc
       Emitter<RestauranteDetalheState> emit,
       ) async {
     await event.when(
-      load: (id) async {
-        emit(state.copyWith(isLoading: true));
+      load: (restaurante) async {
+        emit(
+          state.copyWith(
+            isLoading: true,
+            restaurante: restaurante,
+          ),
+        );
 
-        final produtos = await repository.getProdutos(id);
+        final produtos = await repository.getProdutos(restaurante.id);
 
         emit(state.copyWith(
           produtos: produtos,

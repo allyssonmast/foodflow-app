@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            authenticated: (role) {
+            authenticated: (userId, role) {
               switch (role) {
                 case UserRole.restaurante:
                   context.router.replaceAll([
