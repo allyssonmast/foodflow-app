@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PedidoModel {
 
- int get id; String get restauranteNome; String get status; double get valorTotal; String get criadoEm;
+ int get id; int get clienteId; String get clienteNome; int get restauranteId; String get restauranteNome; String get status; double get valorTotal; String get criadoEm;
 /// Create a copy of PedidoModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PedidoModelCopyWith<PedidoModel> get copyWith => _$PedidoModelCopyWithImpl<Pedi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PedidoModel&&(identical(other.id, id) || other.id == id)&&(identical(other.restauranteNome, restauranteNome) || other.restauranteNome == restauranteNome)&&(identical(other.status, status) || other.status == status)&&(identical(other.valorTotal, valorTotal) || other.valorTotal == valorTotal)&&(identical(other.criadoEm, criadoEm) || other.criadoEm == criadoEm));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PedidoModel&&(identical(other.id, id) || other.id == id)&&(identical(other.clienteId, clienteId) || other.clienteId == clienteId)&&(identical(other.clienteNome, clienteNome) || other.clienteNome == clienteNome)&&(identical(other.restauranteId, restauranteId) || other.restauranteId == restauranteId)&&(identical(other.restauranteNome, restauranteNome) || other.restauranteNome == restauranteNome)&&(identical(other.status, status) || other.status == status)&&(identical(other.valorTotal, valorTotal) || other.valorTotal == valorTotal)&&(identical(other.criadoEm, criadoEm) || other.criadoEm == criadoEm));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,restauranteNome,status,valorTotal,criadoEm);
+int get hashCode => Object.hash(runtimeType,id,clienteId,clienteNome,restauranteId,restauranteNome,status,valorTotal,criadoEm);
 
 @override
 String toString() {
-  return 'PedidoModel(id: $id, restauranteNome: $restauranteNome, status: $status, valorTotal: $valorTotal, criadoEm: $criadoEm)';
+  return 'PedidoModel(id: $id, clienteId: $clienteId, clienteNome: $clienteNome, restauranteId: $restauranteId, restauranteNome: $restauranteNome, status: $status, valorTotal: $valorTotal, criadoEm: $criadoEm)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PedidoModelCopyWith<$Res>  {
   factory $PedidoModelCopyWith(PedidoModel value, $Res Function(PedidoModel) _then) = _$PedidoModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String restauranteNome, String status, double valorTotal, String criadoEm
+ int id, int clienteId, String clienteNome, int restauranteId, String restauranteNome, String status, double valorTotal, String criadoEm
 });
 
 
@@ -65,9 +65,12 @@ class _$PedidoModelCopyWithImpl<$Res>
 
 /// Create a copy of PedidoModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? restauranteNome = null,Object? status = null,Object? valorTotal = null,Object? criadoEm = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? clienteId = null,Object? clienteNome = null,Object? restauranteId = null,Object? restauranteNome = null,Object? status = null,Object? valorTotal = null,Object? criadoEm = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,clienteId: null == clienteId ? _self.clienteId : clienteId // ignore: cast_nullable_to_non_nullable
+as int,clienteNome: null == clienteNome ? _self.clienteNome : clienteNome // ignore: cast_nullable_to_non_nullable
+as String,restauranteId: null == restauranteId ? _self.restauranteId : restauranteId // ignore: cast_nullable_to_non_nullable
 as int,restauranteNome: null == restauranteNome ? _self.restauranteNome : restauranteNome // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,valorTotal: null == valorTotal ? _self.valorTotal : valorTotal // ignore: cast_nullable_to_non_nullable
@@ -157,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String restauranteNome,  String status,  double valorTotal,  String criadoEm)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int clienteId,  String clienteNome,  int restauranteId,  String restauranteNome,  String status,  double valorTotal,  String criadoEm)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PedidoModel() when $default != null:
-return $default(_that.id,_that.restauranteNome,_that.status,_that.valorTotal,_that.criadoEm);case _:
+return $default(_that.id,_that.clienteId,_that.clienteNome,_that.restauranteId,_that.restauranteNome,_that.status,_that.valorTotal,_that.criadoEm);case _:
   return orElse();
 
 }
@@ -178,10 +181,10 @@ return $default(_that.id,_that.restauranteNome,_that.status,_that.valorTotal,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String restauranteNome,  String status,  double valorTotal,  String criadoEm)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int clienteId,  String clienteNome,  int restauranteId,  String restauranteNome,  String status,  double valorTotal,  String criadoEm)  $default,) {final _that = this;
 switch (_that) {
 case _PedidoModel():
-return $default(_that.id,_that.restauranteNome,_that.status,_that.valorTotal,_that.criadoEm);case _:
+return $default(_that.id,_that.clienteId,_that.clienteNome,_that.restauranteId,_that.restauranteNome,_that.status,_that.valorTotal,_that.criadoEm);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +201,10 @@ return $default(_that.id,_that.restauranteNome,_that.status,_that.valorTotal,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String restauranteNome,  String status,  double valorTotal,  String criadoEm)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int clienteId,  String clienteNome,  int restauranteId,  String restauranteNome,  String status,  double valorTotal,  String criadoEm)?  $default,) {final _that = this;
 switch (_that) {
 case _PedidoModel() when $default != null:
-return $default(_that.id,_that.restauranteNome,_that.status,_that.valorTotal,_that.criadoEm);case _:
+return $default(_that.id,_that.clienteId,_that.clienteNome,_that.restauranteId,_that.restauranteNome,_that.status,_that.valorTotal,_that.criadoEm);case _:
   return null;
 
 }
@@ -213,10 +216,13 @@ return $default(_that.id,_that.restauranteNome,_that.status,_that.valorTotal,_th
 @JsonSerializable()
 
 class _PedidoModel implements PedidoModel {
-  const _PedidoModel({required this.id, required this.restauranteNome, required this.status, required this.valorTotal, required this.criadoEm});
+  const _PedidoModel({required this.id, required this.clienteId, required this.clienteNome, required this.restauranteId, required this.restauranteNome, required this.status, required this.valorTotal, required this.criadoEm});
   factory _PedidoModel.fromJson(Map<String, dynamic> json) => _$PedidoModelFromJson(json);
 
 @override final  int id;
+@override final  int clienteId;
+@override final  String clienteNome;
+@override final  int restauranteId;
 @override final  String restauranteNome;
 @override final  String status;
 @override final  double valorTotal;
@@ -235,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PedidoModel&&(identical(other.id, id) || other.id == id)&&(identical(other.restauranteNome, restauranteNome) || other.restauranteNome == restauranteNome)&&(identical(other.status, status) || other.status == status)&&(identical(other.valorTotal, valorTotal) || other.valorTotal == valorTotal)&&(identical(other.criadoEm, criadoEm) || other.criadoEm == criadoEm));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PedidoModel&&(identical(other.id, id) || other.id == id)&&(identical(other.clienteId, clienteId) || other.clienteId == clienteId)&&(identical(other.clienteNome, clienteNome) || other.clienteNome == clienteNome)&&(identical(other.restauranteId, restauranteId) || other.restauranteId == restauranteId)&&(identical(other.restauranteNome, restauranteNome) || other.restauranteNome == restauranteNome)&&(identical(other.status, status) || other.status == status)&&(identical(other.valorTotal, valorTotal) || other.valorTotal == valorTotal)&&(identical(other.criadoEm, criadoEm) || other.criadoEm == criadoEm));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,restauranteNome,status,valorTotal,criadoEm);
+int get hashCode => Object.hash(runtimeType,id,clienteId,clienteNome,restauranteId,restauranteNome,status,valorTotal,criadoEm);
 
 @override
 String toString() {
-  return 'PedidoModel(id: $id, restauranteNome: $restauranteNome, status: $status, valorTotal: $valorTotal, criadoEm: $criadoEm)';
+  return 'PedidoModel(id: $id, clienteId: $clienteId, clienteNome: $clienteNome, restauranteId: $restauranteId, restauranteNome: $restauranteNome, status: $status, valorTotal: $valorTotal, criadoEm: $criadoEm)';
 }
 
 
@@ -255,7 +261,7 @@ abstract mixin class _$PedidoModelCopyWith<$Res> implements $PedidoModelCopyWith
   factory _$PedidoModelCopyWith(_PedidoModel value, $Res Function(_PedidoModel) _then) = __$PedidoModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String restauranteNome, String status, double valorTotal, String criadoEm
+ int id, int clienteId, String clienteNome, int restauranteId, String restauranteNome, String status, double valorTotal, String criadoEm
 });
 
 
@@ -272,9 +278,12 @@ class __$PedidoModelCopyWithImpl<$Res>
 
 /// Create a copy of PedidoModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? restauranteNome = null,Object? status = null,Object? valorTotal = null,Object? criadoEm = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? clienteId = null,Object? clienteNome = null,Object? restauranteId = null,Object? restauranteNome = null,Object? status = null,Object? valorTotal = null,Object? criadoEm = null,}) {
   return _then(_PedidoModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,clienteId: null == clienteId ? _self.clienteId : clienteId // ignore: cast_nullable_to_non_nullable
+as int,clienteNome: null == clienteNome ? _self.clienteNome : clienteNome // ignore: cast_nullable_to_non_nullable
+as String,restauranteId: null == restauranteId ? _self.restauranteId : restauranteId // ignore: cast_nullable_to_non_nullable
 as int,restauranteNome: null == restauranteNome ? _self.restauranteNome : restauranteNome // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,valorTotal: null == valorTotal ? _self.valorTotal : valorTotal // ignore: cast_nullable_to_non_nullable

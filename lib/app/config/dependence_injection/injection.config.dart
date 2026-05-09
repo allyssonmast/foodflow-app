@@ -115,9 +115,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i465.RestauranteRemoteDataSource>(
       () => _i17.RestauranteRemoteDataSourceImpl(gh<_i446.ApiClient>()),
     );
-    gh.factory<_i789.RestauranteBloc>(
-      () => _i789.RestauranteBloc(gh<_i514.ProdutoService>()),
-    );
     gh.lazySingleton<_i856.ClienteRepository>(
       () => _i678.ClienteRepositoryImpl(gh<_i635.ClienteRemoteDataSource>()),
     );
@@ -134,6 +131,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i817.AuthRepositoryImpl(
         gh<_i214.AuthRemoteDataSource>(),
         gh<_i665.AuthLocalDataSource>(),
+      ),
+    );
+    gh.factory<_i789.RestauranteBloc>(
+      () => _i789.RestauranteBloc(
+        gh<_i514.ProdutoService>(),
+        gh<_i901.PedidoRepository>(),
       ),
     );
     gh.factory<_i887.ClienteBloc>(

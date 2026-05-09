@@ -53,14 +53,14 @@ class _ProdutoFormDialogState extends State<ProdutoFormDialog> {
     return BlocListener<RestauranteBloc, RestauranteState>(
       listener: (context, state) {
         state.whenOrNull(
-          loaded: (_) {
+          success: () {
             Navigator.pop(context);
           },
 
           error: (message) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(message)));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(message)),
+            );
           },
         );
       },

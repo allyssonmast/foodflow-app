@@ -47,51 +47,33 @@ class _OrdersPageState extends State<OrdersPage> {
 
             return RefreshIndicator(
               onRefresh: () async {
-
-                context.read<OrdersBloc>().add(
-                  OrdersEvent.load(clienteId!),
-                );
+                context.read<OrdersBloc>().add(OrdersEvent.load(clienteId!));
               },
               child: ListView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: state.pedidos.length,
                 itemBuilder: (_, index) {
-
-                  final pedido =
-                  state.pedidos[index];
+                  final pedido = state.pedidos[index];
 
                   return Card(
-                    margin: const EdgeInsets.only(
-                      bottom: 12,
-                    ),
+                    margin: const EdgeInsets.only(bottom: 12),
                     child: ListTile(
-
-                      title: Text(
-                        pedido.restauranteNome,
-                      ),
+                      title: Text(pedido.restauranteNome),
 
                       subtitle: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           const SizedBox(height: 4),
 
-                          Text(
-                            "Status: ${pedido.status}",
-                          ),
+                          Text("Status: ${pedido.status}"),
 
-                          Text(
-                            pedido.criadoEm,
-                          ),
+                          Text(pedido.criadoEm),
                         ],
                       ),
 
                       trailing: Text(
                         "R\$ ${pedido.valorTotal.toStringAsFixed(2)}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   );

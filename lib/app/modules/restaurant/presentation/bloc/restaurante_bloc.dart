@@ -1,15 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../orders/data/pedido_repository.dart';
+import '../../../orders/domain/pedido_model.dart';
 import '../../data/produto_service.dart';
-import 'restaurante_event.dart';
-import 'restaurante_state.dart';
+import '../bloc/restaurante_event.dart';
+import '../bloc/restaurante_state.dart';
 
 @injectable
 class RestauranteBloc extends Bloc<RestauranteEvent, RestauranteState> {
   final ProdutoService service;
 
-  RestauranteBloc(this.service) : super(const RestauranteState.initial()) {
+  final PedidoRepository pedidoService;
+
+  RestauranteBloc(this.service, this.pedidoService)
+    : super(const RestauranteState.initial()) {
     on<LoadProdutos>(_onLoadProdutos);
 
     on<CreateProduto>(_onCreateProduto);
@@ -26,7 +31,11 @@ class RestauranteBloc extends Bloc<RestauranteEvent, RestauranteState> {
 
       final produtos = await service.meusProdutos();
 
-      emit(RestauranteState.loaded(produtos));
+      final pedidos = await pedidoService.pedidosRestaurante(
+        event.restauranteId,
+      );
+
+      emit(RestauranteState.loaded(produtos: produtos, pedidos: pedidos));
     } catch (e) {
       emit(RestauranteState.error(e.toString()));
     }
@@ -37,13 +46,18 @@ class RestauranteBloc extends Bloc<RestauranteEvent, RestauranteState> {
     Emitter<RestauranteState> emit,
   ) async {
     try {
-      emit(const RestauranteState.loading());
+      final pedidos = state.maybeWhen(
+        loaded: (_, pedidos) => pedidos,
+        orElse: () => <PedidoModel>[],
+      );
 
       await service.criar(event.request);
 
       final produtos = await service.meusProdutos();
 
-      emit(RestauranteState.loaded(produtos));
+      emit(const RestauranteState.success());
+
+      emit(RestauranteState.loaded(produtos: produtos, pedidos: pedidos));
     } catch (e) {
       emit(RestauranteState.error(e.toString()));
     }
@@ -54,13 +68,18 @@ class RestauranteBloc extends Bloc<RestauranteEvent, RestauranteState> {
     Emitter<RestauranteState> emit,
   ) async {
     try {
-      emit(const RestauranteState.loading());
+      final pedidos = state.maybeWhen(
+        loaded: (_, pedidos) => pedidos,
+        orElse: () => <PedidoModel>[],
+      );
 
       await service.atualizar(event.id, event.request);
 
       final produtos = await service.meusProdutos();
 
-      emit(RestauranteState.loaded(produtos));
+      emit(const RestauranteState.success());
+
+      emit(RestauranteState.loaded(produtos: produtos, pedidos: pedidos));
     } catch (e) {
       emit(RestauranteState.error(e.toString()));
     }

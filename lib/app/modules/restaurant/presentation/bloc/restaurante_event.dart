@@ -1,20 +1,23 @@
 import '../../data/model/produto_request.dart';
 
-abstract class RestauranteEvent {
-  const RestauranteEvent();
-}
+abstract class RestauranteEvent {}
 
-class LoadProdutos extends RestauranteEvent {}
+class LoadProdutos extends RestauranteEvent {
+  final int restauranteId;
+
+  LoadProdutos(this.restauranteId);
+}
 
 class CreateProduto extends RestauranteEvent {
   final ProdutoRequest request;
 
-  const CreateProduto(this.request);
+  CreateProduto(this.request);
 }
 
 class UpdateProduto extends RestauranteEvent {
   final int id;
+
   final ProdutoRequest request;
 
-  const UpdateProduto(this.id, this.request);
+  UpdateProduto(this.id, this.request);
 }
