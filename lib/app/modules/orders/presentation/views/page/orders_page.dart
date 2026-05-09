@@ -28,44 +28,78 @@ class _OrdersPageState extends State<OrdersPage> {
     );
 
     return BlocProvider(
-      create: (_) => getIt<OrdersBloc>()..add(OrdersEvent.load(clienteId!)),
+      create: (_) => getIt<OrdersBloc>()
+        ..add(OrdersEvent.load(clienteId!)),
+
       child: Scaffold(
-        appBar: AppBar(title: const Text("Meus pedidos")),
+        appBar: AppBar(
+          title: const Text("Meus pedidos"),
+        ),
+
         body: BlocBuilder<OrdersBloc, OrdersState>(
           builder: (context, state) {
             if (state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
 
             if (state.error != null) {
-              return Center(child: Text(state.error!));
-            }
-
-            if (state.pedidos.isEmpty) {
-              return const Center(child: Text("Nenhum pedido encontrado"));
+              return Center(
+                child: Text(state.error!),
+              );
             }
 
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<OrdersBloc>().add(OrdersEvent.load(clienteId!));
+                context.read<OrdersBloc>().add(
+                  OrdersEvent.load(clienteId!),
+                );
               },
-              child: ListView.builder(
+
+              child: state.pedidos.isEmpty
+                  ? ListView(
+                physics:
+                const AlwaysScrollableScrollPhysics(),
+
+                children: const [
+                  SizedBox(height: 300),
+
+                  Center(
+                    child: Text(
+                      "Nenhum pedido encontrado",
+                    ),
+                  ),
+                ],
+              )
+                  : ListView.builder(
                 padding: const EdgeInsets.all(16),
+
                 itemCount: state.pedidos.length,
+
                 itemBuilder: (_, index) {
                   final pedido = state.pedidos[index];
 
                   return Card(
-                    margin: const EdgeInsets.only(bottom: 12),
+                    margin: const EdgeInsets.only(
+                      bottom: 12,
+                    ),
+
                     child: ListTile(
-                      title: Text(pedido.restauranteNome),
+                      title: Text(
+                        pedido.restauranteNome,
+                      ),
 
                       subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+
                         children: [
                           const SizedBox(height: 4),
 
-                          Text("Status: ${pedido.status}"),
+                          Text(
+                            "Status: ${pedido.status}",
+                          ),
 
                           Text(pedido.criadoEm),
                         ],
@@ -73,7 +107,10 @@ class _OrdersPageState extends State<OrdersPage> {
 
                       trailing: Text(
                         "R\$ ${pedido.valorTotal.toStringAsFixed(2)}",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   );
