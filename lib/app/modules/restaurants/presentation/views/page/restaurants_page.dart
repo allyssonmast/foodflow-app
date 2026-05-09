@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/auto_router/routes_imports.gr.dart';
 import '../../bloc/restaurante_bloc.dart';
+import '../../bloc/restaurante_event.dart';
 import '../../bloc/restaurante_state.dart';
 
 @RoutePage()
@@ -25,26 +26,40 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
           loading: () => const Center(child: CircularProgressIndicator()),
 
           loaded: (restaurantes) {
-            return ListView.builder(
-              itemCount: restaurantes.length,
-              itemBuilder: (_, i) {
-                final r = restaurantes[i];
+            return SafeArea(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  context.read<RestauranteBloc>().add(
+                    const RestauranteEvent.load(),
+                  );
+                },
 
-                return InkWell(
-                  onTap: () {
-                    print('clicou no restaurante ${r.nome}');
-                    context.router.push(
-                      RestauranteDetalhePageRoute(restaurante: r),
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(12),
+
+                  itemCount: restaurantes.length,
+
+                  itemBuilder: (_, i) {
+                    final r = restaurantes[i];
+
+                    return InkWell(
+                      onTap: () {
+                        context.router.push(
+                          RestauranteDetalhePageRoute(restaurante: r),
+                        );
+                      },
+
+                      child: Card(
+                        child: ListTile(
+                          title: Text(r.nome),
+
+                          subtitle: Text(r.descricao),
+                        ),
+                      ),
                     );
                   },
-                  child: Card(
-                    child: ListTile(
-                      title: Text(r.nome),
-                      subtitle: Text(r.descricao),
-                    ),
-                  ),
-                );
-              },
+                ),
+              ),
             );
           },
 

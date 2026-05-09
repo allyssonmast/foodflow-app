@@ -29,6 +29,8 @@ import '../../modules/checkout/domain/checkout_model.dart' as _i584;
 import '../../modules/checkout/domain/checkout_repository.dart' as _i437;
 import '../../modules/checkout/domain/finalizar_checkout_usecase.dart' as _i986;
 import '../../modules/checkout/presentation/bloc/checkout_bloc.dart' as _i526;
+import '../../modules/orders/data/pedido_repository.dart' as _i901;
+import '../../modules/orders/presentation/bloc/orders_bloc.dart' as _i573;
 import '../../modules/register/data/datasource/register_datasource.dart'
     as _i591;
 import '../../modules/register/data/register_service.dart' as _i758;
@@ -104,6 +106,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i818.RestauranteDataSource>(
       () => _i62.RestauranteDataSourceImpl(gh<_i446.ApiClient>()),
     );
+    gh.lazySingleton<_i901.PedidoRepository>(
+      () => _i901.PedidoRepositoryImpl(gh<_i446.ApiClient>()),
+    );
     gh.lazySingleton<_i665.AuthLocalDataSource>(
       () => _i907.AuthLocalDataSourceImpl(gh<_i558.FlutterSecureStorage>()),
     );
@@ -118,6 +123,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i758.RegisterService>(
       () => _i758.RegisterService(gh<_i591.RegisterDatasource>()),
+    );
+    gh.factory<_i573.OrdersBloc>(
+      () => _i573.OrdersBloc(gh<_i901.PedidoRepository>()),
     );
     gh.lazySingleton<_i437.CheckoutRepository>(
       () => _i205.CheckoutRepositoryImpl(gh<_i755.CheckoutDatasource>()),
